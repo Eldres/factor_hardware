@@ -18,15 +18,8 @@ class PackageInput extends React.Component {
     this.handlePackageName = this.handlePackageName.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
     this.handleDescChange = this.handleDescChange.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  // handleChange(event){
-  //   const {name, value} = event.target
-  //   this.setState({
-  //     [name]: value
-  //   })    
-  // }
   handleSubmit(event) {
     event.preventDefault()
     const { packageName, unitQuantity, dueDate, textArea} = this.state
@@ -128,15 +121,8 @@ export default class Create extends React.Component {
     this.state = {
       newPack: null
     }
-    // this.handleSubmit = this.handleSubmit.bind(this)
   }
-  // handleSubmit(id, packageItem) {
-  //   this.setState({
-  //     [id]: packageItem
-  //   })
-  // }
   render() {
-    // const { newPack } = this.state
     return (
       <React.Fragment>
         <div className='package-container' >
