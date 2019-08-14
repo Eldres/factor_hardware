@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import { DeliveryDate } from '../utils/Calendar'
+import Results from './Results'
 import { Link } from 'react-router-dom'
 
 class PackageInput extends React.Component {
@@ -99,20 +100,37 @@ class PackageInput extends React.Component {
             </label>
           </li>
         </ul>
-        <button
-          className='btn dark-btn'
-          type='submit'
-        >
-          Submit
-          </button>
       </form>
     )
   }
 }
 
 export default class Create extends React.Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      result: false
+    }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleReset = this.handleReset.bind(this)
+  }
+  handleSubmit(id, packageItem){
+    this.setState({
+      [id]: packageItem
+    })
+  }
+  handleReset(id){
+    this.setState({
+      [id]: null
+    })
+  }
   render() {
-    // const { packageItem } = this.state
+    const { result, packageItem } = this.state
+
+    if(result === true){
+      return <Results packageItem={packageItem} />
+    }
     return (
       <React.Fragment>
         <div className='package-container' >
@@ -120,6 +138,13 @@ export default class Create extends React.Component {
           <div>
             <PackageInput />
           </div>
+          {packageItem && (
+            <button
+              className='btn btn-space'
+              onClick={() => this.setState({result: true})}>
+                Submit Package
+              </button>
+          )}
         </div>
       </React.Fragment>
     )
