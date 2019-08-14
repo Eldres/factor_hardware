@@ -25,9 +25,9 @@ class PackageInput extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     this.setState(prevState => ({
-      packageInv: prevState.packageInv.map((item) => item.key === key ? { ...item } : item)
+      packageInv: prevState.packageInv.map(
+        (item) => item.key === key ? { ...item } : item)
     }))
-    // const { packageName, unitQuantity, dueDate, textArea } = this.state
     alert(`Package Info: \n
       name: ${packageInv.packageName}\n
       units: ${packageInv.unitQuantity}\n
@@ -47,11 +47,7 @@ class PackageInput extends React.Component {
       }
     }))
   }
-  // this.setState({ unitQuantity: event.target })
-  // this.setState({ textArea: event.target })
   render() {
-    // const { packageInv, packageInv } = this.state
-    // const { packageName, unitQuantity, dueDate, textArea } = packageInv
     return (
       <form onSubmit={this.handleSubmit}>
         <ul>
@@ -117,20 +113,6 @@ class PackageInput extends React.Component {
       </form>
     )
   }
-}
-
-function PackagePreview({ bundlePackage, onReset, label }) {
-  return (
-    <div className='column'>
-      {bundlePackage}
-    </div>
-  )
-}
-
-PackagePreview.propTypes = {
-  bundlePackage: PropTypes.object.isRequired,
-  onReset: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired
 }
 
 export default class Create extends React.Component {
