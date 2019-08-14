@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import { DeliveryDate } from '../utils/Calendar'
 import Results from './Results'
 import { Link } from 'react-router-dom'
 
@@ -86,7 +85,6 @@ class PackageInput extends React.Component {
                 selected={this.state.dueDate}
                 value={this.state.dueDate.toLocaleDateString()}
                 onChange={this.handleDateChange}
-                calendarContainer={DeliveryDate}
               />
             </label>
           </li>
@@ -113,24 +111,13 @@ export default class Create extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      result: false
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleReset = this.handleReset.bind(this)
-  }
-  handleSubmit(id, packageItem) {
-    this.setState({
-      [id]: packageItem
-    })
-  }
-  handleReset(id) {
-    this.setState({
-      [id]: null
-    })
+    // this.state = {
+    //   result: false
+    // }
+    // this.handleReset = this.handleReset.bind(this)
   }
   render() {
-    const { result, packageItem } = this.state
+    // const { result, packageItem } = this.state
 
     if (result === true) {
       return <Results packageItem={packageItem} />
@@ -142,13 +129,6 @@ export default class Create extends React.Component {
           <div>
             <PackageInput />
           </div>
-          {packageItem && (
-            <button
-              className='btn btn-space'
-              onClick={() => this.setState({ result: true })}>
-              Submit Package
-              </button>
-          )}
         </div>
       </React.Fragment>
     )
