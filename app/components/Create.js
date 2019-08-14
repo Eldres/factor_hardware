@@ -22,7 +22,7 @@ class PackageInput extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault()
-    const { packageName, unitQuantity, dueDate, textArea} = this.state
+    const { packageName, unitQuantity, dueDate, textArea } = this.state
     alert(`Package Info: \n
       name: ${packageName}\n
       units: ${unitQuantity}\n
@@ -110,19 +110,9 @@ class PackageInput extends React.Component {
   }
 }
 
-PackageInput.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-}
-
 export default class Create extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      newPack: null
-    }
-  }
   render() {
+    // const { packageItem } = this.state
     return (
       <React.Fragment>
         <div className='package-container' >
