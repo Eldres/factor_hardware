@@ -84,6 +84,7 @@ class PackageInput extends React.Component {
               Delivery Due Date:
                 <DatePicker
                 selected={this.state.dueDate}
+                value={this.state.dueDate.toLocaleDateString()}
                 onChange={this.handleDateChange}
                 calendarContainer={DeliveryDate}
               />
@@ -100,13 +101,16 @@ class PackageInput extends React.Component {
             </label>
           </li>
         </ul>
+        <button type='submit'>
+          Submit
+        </button>
       </form>
     )
   }
 }
 
 export default class Create extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -115,12 +119,12 @@ export default class Create extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReset = this.handleReset.bind(this)
   }
-  handleSubmit(id, packageItem){
+  handleSubmit(id, packageItem) {
     this.setState({
       [id]: packageItem
     })
   }
-  handleReset(id){
+  handleReset(id) {
     this.setState({
       [id]: null
     })
@@ -128,7 +132,7 @@ export default class Create extends React.Component {
   render() {
     const { result, packageItem } = this.state
 
-    if(result === true){
+    if (result === true) {
       return <Results packageItem={packageItem} />
     }
     return (
@@ -141,8 +145,8 @@ export default class Create extends React.Component {
           {packageItem && (
             <button
               className='btn btn-space'
-              onClick={() => this.setState({result: true})}>
-                Submit Package
+              onClick={() => this.setState({ result: true })}>
+              Submit Package
               </button>
           )}
         </div>
