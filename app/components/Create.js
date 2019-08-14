@@ -2,70 +2,56 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import { DeliveryDate } from '../utils/Calendar'
-import Results from './Results'
+// import Results from './Results'
 import { Link } from 'react-router-dom'
 
-const packageObj = [
-  {
-    packageName: '',
-    unitQuantity: '',
-    dueDate: new Date(),
-    textArea: '',
-    files: [] //this needs to be populated
-  }
-]
 class PackageInput extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      packageInv: packageObj,
-      newPackage: {
-        packageName: '',
-        unitQuantity: '',
-        dueDate: new Date(),
-        textArea: '',
-        files: []
-      }
+      packageInv: [
+        {
+          packageName: '',
+          unitQuantity: '',
+          dueDate: new Date(),
+          textArea: '',
+          files: []
+        }
+      ]
     }
-    this.handlePackageName = this.handlePackageName.bind(this)
-    this.handleQuantity = this.handleQuantity.bind(this)
-    this.handleDescChange = this.handleDescChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit(event) {
     event.preventDefault()
-    const { packageInv, newPackage } = this.state
-    this.setState({
-      packageInv: [...packageInv, newPackage],
-    }, () => {
-      for (let val in newPackage) {
-        newPackage[val] = ''
-      }
-      this.setState({ newPackage })
-    })
+    this.setState(prevState => ({
+      packageInv: prevState.packageInv.map((item) => item.key === key ? { ...item } : item)
+    }))
     // const { packageName, unitQuantity, dueDate, textArea } = this.state
     alert(`Package Info: \n
-      name: ${newPackage.packageName.value}\n
-      units: ${newPackage.unitQuantity.value}\n
-      due date: ${newPackage.dueDate}\n
-      description: ${newPackage.textArea.value}
+      name: ${packageInv.packageName}\n
+      units: ${packageInv.unitQuantity}\n
+      due date: ${packageInv.dueDate}\n
+      description: ${packageInv.textArea}
     `)
   }
-  handlePackageName(event, packageName) {
-    const { newPackage } = this.state
-    newPackage[packageName] = event.target.value
-    this.setState({ newPackage })
+  handleChange(event) {
+    this.setState(prevState => ({
+      ...prevState,
+      packageInv: {
+        ...prevState.packageInv,
+        packageName,
+        unitQuantity,
+        dueDate,
+        textArea
+      }
+    }))
   }
-  handleQuantity(event) {
-    this.setState({ unitQuantity: event.target.value })
-  }
-  handleDescChange(event) {
-    this.setState({ textArea: event.target.value })
-  }
+  // this.setState({ unitQuantity: event.target })
+  // this.setState({ textArea: event.target })
   render() {
-    const {packageInv, newPackage} = this.state
-    const { packageName, unitQuantity, dueDate, textArea } = newPackage
+    // const { packageInv, packageInv } = this.state
+    // const { packageName, unitQuantity, dueDate, textArea } = packageInv
     return (
       <form onSubmit={this.handleSubmit}>
         <ul>
@@ -77,8 +63,8 @@ class PackageInput extends React.Component {
                 id='packageName'
                 placeholder='package name'
                 autoComplete='off'
-                value={packageName.value}
-                onChange={(event) => this.handlePackageName(event, packageName)} />
+                value={this.state.packageInv.packageName}
+                onChange={(event) => this.handleChange(event, packageName)} />
             </label>
           </li>
           <li>
@@ -97,16 +83,16 @@ class PackageInput extends React.Component {
                 type='text'
                 id='unitQuantity'
                 placeholder='unit quantity'
-                value={unitQuantity.value}
-                onChange={(event) => this.handleQuantity(event, unitQuantity)} />
+                value={this.state.packageInv.unitQuantity}
+                onChange={(event) => this.handleChange(event, unitQuantity)} />
             </label>
           </li>
           <li>
             <label>
               Delivery Due Date:
-              <DatePicker 
-              selected={this.state.dueDate} 
-              onChange={(event) => this.setState({dueDate: event})} 
+              <DatePicker
+                selected={this.state.packageInv.dueDate}
+                onChange={(event) => this.handleChange(event, dueDate)}
               />
             </label>
           </li>
@@ -116,9 +102,9 @@ class PackageInput extends React.Component {
                 <br />
               <textarea
                 id='desc'
-                value={textArea.value}
+                value={this.state.packageInv.textArea}
                 placeholder='describe package'
-                onChange={(event) => this.handleDescChange(event, textArea)} />
+                onChange={(event) => this.handleChange(event, textArea)} />
             </label>
           </li>
         </ul>
