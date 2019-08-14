@@ -1,4 +1,4 @@
-export default function DeliveryDate({ className, children }) {
+export function DeliveryDate({ className, children }) {
   return (
     <div style={{ padding: '16px', background: '#216ba5', color: '#fff' }}>
       <CalendarContainer className={className}>
