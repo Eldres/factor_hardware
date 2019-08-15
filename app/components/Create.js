@@ -14,6 +14,7 @@ class PackageInput extends React.Component {
       dueDate: new Date(),
       textArea: '',
       results: false,
+      filesList: []
     }
     this.handleQuantity = this.handleQuantity.bind(this)
     this.handlePackageName = this.handlePackageName.bind(this)
@@ -33,24 +34,33 @@ class PackageInput extends React.Component {
     this.setState({ textArea: event.target.value })
   }
   render() {
-    const {results} = this.state
+    const { results } = this.state
     if (results === true) {
       return (
-        <Results 
-          packName={this.state.packageName} 
+        <Results
+          packName={this.state.packageName}
           unitQuant={this.state.unitQuantity}
           dueBy={this.state.dueDate.toLocaleString()}
           desc={this.state.textArea}
+          onReset={() => this.setState({
+            packageName: '',
+            unitQuantity: '',
+            dudueDateeBy: null,
+            textArea: '',
+            results: false
+          })}
         />
       )
     }
     return (
       <form onSubmit={this.handleSubmit}>
+        <h3 className='center-text'>Create a New Package</h3>
         <ul>
           <li>
             <label>
               Package Name:
-                <input
+                <br />
+              <input
                 type='text'
                 id='packageName'
                 placeholder='package name'
@@ -62,7 +72,8 @@ class PackageInput extends React.Component {
           <li>
             <label>
               Upload Package Files:
-                <input
+              <br />
+              <input
                 type='file'
                 id='file'
                 multiple />
@@ -71,7 +82,8 @@ class PackageInput extends React.Component {
           <li>
             <label>
               Requested Unit Quantity:
-                <input
+              <br />
+              <input
                 type='text'
                 id='unitQuant'
                 placeholder='unit quantity'
@@ -82,7 +94,8 @@ class PackageInput extends React.Component {
           <li>
             <label>
               Delivery Due Date:
-                <DatePicker
+              <br />
+              <DatePicker
                 selected={this.state.dueDate}
                 onChange={this.handleDateChange}
               />
@@ -113,7 +126,7 @@ export default class Create extends React.Component {
     return (
       <React.Fragment>
         <div className='package-container' >
-          <h1 className='center-text header-lg'>Create a New Package</h1>
+          <h1 className='header-title'>Factor</h1>
           <div>
             <PackageInput />
           </div>
