@@ -13,22 +13,12 @@ class PackageInput extends React.Component {
       unitQuantity: 1,
       dueDate: new Date(),
       textArea: '',
+      results: false,
     }
     this.handleQuantity = this.handleQuantity.bind(this)
     this.handlePackageName = this.handlePackageName.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
     this.handleDescChange = this.handleDescChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  handleSubmit(event) {
-    event.preventDefault()
-    const { packageName, unitQuantity, dueDate, textArea } = this.state
-    alert(`Package Info: \n
-      name: ${packageName}\n
-      units: ${unitQuantity}\n
-      due date: ${dueDate}\n
-      description: ${textArea}
-    `)
   }
   handlePackageName(event) {
     this.setState({ packageName: event.target.value })
@@ -43,6 +33,17 @@ class PackageInput extends React.Component {
     this.setState({ textArea: event.target.value })
   }
   render() {
+    const {results} = this.state
+    if (results === true) {
+      return (
+        <Results 
+          packName={this.state.packageName} 
+          unitQuant={this.state.unitQuantity}
+          dueBy={this.state.dueDate.toLocaleString()}
+          desc={this.state.textArea}
+        />
+      )
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <ul>
@@ -83,7 +84,6 @@ class PackageInput extends React.Component {
               Delivery Due Date:
                 <DatePicker
                 selected={this.state.dueDate}
-                value={this.state.dueDate.toLocaleDateString()}
                 onChange={this.handleDateChange}
               />
             </label>
@@ -99,8 +99,9 @@ class PackageInput extends React.Component {
             </label>
           </li>
         </ul>
-        <button type='submit'>
-          Submit
+        <button className='btn light-btn btn-space'
+          onClick={() => this.setState({ results: true })}>
+          Create Package
         </button>
       </form>
     )
@@ -108,20 +109,7 @@ class PackageInput extends React.Component {
 }
 
 export default class Create extends React.Component {
-  constructor(props) {
-    super(props)
-
-    // this.state = {
-    //   result: false
-    // }
-    // this.handleReset = this.handleReset.bind(this)
-  }
   render() {
-    // const { result, packageItem } = this.state
-
-    if (result === true) {
-      return <Results packageItem={packageItem} />
-    }
     return (
       <React.Fragment>
         <div className='package-container' >
