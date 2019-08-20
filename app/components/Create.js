@@ -45,7 +45,7 @@ class PackageInput extends React.Component {
           onReset={() => this.setState({
             packageName: '',
             unitQuantity: '',
-            dudueDateeBy: null,
+            dueDate: null,
             textArea: '',
             results: false
           })}
